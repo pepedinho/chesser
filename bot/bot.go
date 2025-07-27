@@ -66,6 +66,24 @@ func interactionHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		storage.TrackedUsers[i.Member.User.ID] = username
 		storage.SaveTrackedUsers()
 
+		// assignation du role chess si il ne l'a pas deja
+		defaultRoleID := "1399078502334070874"
+		member := i.Member
+		hasDefaultRole := false
+		for _, rID := range member.Roles {
+			if rID == defaultRoleID {
+				hasDefaultRole = true
+				break
+			}
+		}
+		if !hasDefaultRole {
+			err := s.GuildMemberRoleAdd(i.GuildID, i.Member.User.ID, defaultRoleID)
+			if err != nil {
+				// Optionnel : log l’erreur, mais ne bloque pas l’exécution
+				fmt.Println("⚠️ Impossible d'ajouter le rôle par défaut :", err)
+			}
+		}
+
 		rating, err := chess.FetchChessRating(username)
 		if err != nil {
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
