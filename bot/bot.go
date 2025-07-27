@@ -79,7 +79,6 @@ func interactionHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		if !hasDefaultRole {
 			err := s.GuildMemberRoleAdd(i.GuildID, i.Member.User.ID, defaultRoleID)
 			if err != nil {
-				// Optionnel : log l’erreur, mais ne bloque pas l’exécution
 				fmt.Println("⚠️ Impossible d'ajouter le rôle par défaut :", err)
 			}
 		}
