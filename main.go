@@ -2,11 +2,13 @@ package main
 
 import (
 	"chesser/bot"
+	"chesser/config"
 	"chesser/storage"
 	"fmt"
 )
 
 func main() {
+	config.LoadConfig()
 	storage.LoadTrackedUser()
 
 	err := bot.Start()
