@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 
 services:
   chess-discord-bot:
@@ -8,7 +8,7 @@ services:
     volumes:
       - ./data:/app/data           
       - ./logs:/app/logs
-      - ./config.json:/app/config.json:ro
+      - ./tracked_users.json:/app/tracked_users.json:ro
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
     logging:
