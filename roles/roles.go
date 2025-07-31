@@ -68,13 +68,12 @@ func UpdateUserRole(s *discordgo.Session, guildID, userID string, newRating int)
 	for _, rID := range member.Roles {
 		for _, role := range roles {
 			if role.ID == rID && role.Name == newRoleName {
-				//
 				return nil
 			}
 		}
 	}
 
-	// suppresion du role conditionel
+	// suppresion conditionel du role 
 	for _, rID := range member.Roles {
 		for _, role := range roles {
 			if role.ID == rID && strings.HasPrefix(role.Name, "Chess (") {
