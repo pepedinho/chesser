@@ -8,7 +8,7 @@ services:
     volumes:
       - ./data:/app/data           
       - ./logs:/app/logs
-      - ./tracked_users.json:/app/tracked_users.json:ro
+      - ./tracked_users.json:/app/tracked_users.json
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
     logging:
