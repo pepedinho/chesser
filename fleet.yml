@@ -1,4 +1,5 @@
 update:
   - cmd: echo "start update"
+  - cmd: git pull
   - cmd: docker-compose down
   - cmd: docker-compose up --build -d
