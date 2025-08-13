@@ -1,0 +1,4 @@
+update:
+  -cmd: echo "start update"
+  -cmd: docker-compose down
+  -cmd: docker-compose up --build -d
