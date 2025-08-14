@@ -1,5 +1,10 @@
+ENV: &default_env
+  DISCORD_TOKEN: $
+
 update:
-  - cmd: echo "Start update"
-  - cmd: git pull
-  - cmd: docker-compose down
-  - cmd: docker-compose up --build -d
+  env: *default_env
+  steps:
+    - cmd: echo "Start update"
+    - cmd: git pull
+    - cmd: docker-compose down
+    - cmd: docker-compose up --build -d
