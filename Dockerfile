@@ -12,7 +12,6 @@ COPY go.mod go.sum ./
 
 RUN go mod download
 
-# Copie tout le code source
 COPY . .
 
 # Compile le binaire pour ARMv7
