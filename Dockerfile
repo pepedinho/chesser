@@ -8,7 +8,6 @@ ENV CGO_ENABLED=0 \
 
 WORKDIR /app
 
-# Copie les fichiers go.mod et go.sum pour gérer le cache des modules
 COPY go.mod go.sum ./
 
 RUN go mod download
