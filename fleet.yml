@@ -1,11 +1,30 @@
 ENV: &default_env
   DISCORD_TOKEN: $
 
-update:
-  env: *default_env
-  steps:
-    - cmd: echo "Start update"
-    - cmd: git pull
-    - cmd: docker-compose down
-    - cmd: docker-compose up --build -d
-      blocking: true
+# update:
+#   env: *default_env
+#   steps:
+#     - cmd: echo "Start update"
+#     - cmd: git pull
+#     - cmd: docker-compose down
+#     - cmd: docker-compose up --build -d
+#       blocking: true
+
+timeout: 800
+
+pipeline:
+  jobs:
+    pull:
+      steps:
+        - cmd: echo "Start update"
+        - cmd: git pull
+    
+    down:
+      steps:
+        - cmd: docker-compose down
+    
+    deploy:
+      needs: [down, pull]
+      env: *default_env
+      steps:
+        - cmd: docker-compose up --build -d
