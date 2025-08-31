@@ -94,7 +94,7 @@ func interactionHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			return
 		}
 
-		err = roles.UpdateUserRole(s, i.GuildID, i.Member.User.ID, rating)
+		err = roles.UpdateUserRole(s, i.GuildID, i.Member.User.ID, rating.ChessRapid.Last.Rating)
 		if err != nil {
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
@@ -105,10 +105,21 @@ func interactionHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			return
 		}
 
+		embed, err := BuildChessEmbed(username, *rating)
+		if err != nil {
+			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+				Type: discordgo.InteractionResponseChannelMessageWithSource,
+				Data: &discordgo.InteractionResponseData{
+					Content: "❌ Impossible de récupérer les infos Chess.com.",
+				},
+			})
+			return
+		}
+		fmt.Printf("embed : %v", embed)
 		s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 			Type: discordgo.InteractionResponseChannelMessageWithSource,
 			Data: &discordgo.InteractionResponseData{
-				Content: fmt.Sprintf("✅ Ton rôle a été mis à jour (%d Elo).", rating),
+				Embeds: []*discordgo.MessageEmbed{embed},
 			},
 		})
 	}

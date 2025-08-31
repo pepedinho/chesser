@@ -16,12 +16,12 @@ func StartScheduler() {
 		}
 		guildID := BotSession.State.Guilds[0].ID
 		for discordID, chessUsername := range storage.TrackedUsers {
-			rating, err := chess.FetchChessRating(chessUsername)
+			stats, err := chess.FetchChessRating(chessUsername)
 			if err != nil {
 				fmt.Println("❌ API error for {", chessUsername, "} : ", err)
 				continue
 			}
-			roles.UpdateUserRole(BotSession, guildID, discordID, rating)
+			roles.UpdateUserRole(BotSession, guildID, discordID, stats.ChessRapid.Last.Rating)
 		}
 	}
 }
