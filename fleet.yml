@@ -1,5 +1,7 @@
 ENV: &default_env
   DISCORD_TOKEN: $
+  D_WEBHOOK_G: $
+  D_WEBHOOK_T: $
 
 # update:
 #   env: *default_env
