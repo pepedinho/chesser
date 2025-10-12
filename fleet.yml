@@ -14,7 +14,7 @@ ENV: &default_env
 
 timeout: 800
 
-branches: [main]
+branches: [origin/main]
 
 pipeline:
   notifications:
